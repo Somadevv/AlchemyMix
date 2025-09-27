@@ -7,7 +7,7 @@ public class OptionsPanel extends JPanel {
     private final JCheckBox toggleFullscreen;
     private final JButton backButton;
 
-    public OptionsPanel(Runnable onBack) {
+    public OptionsPanel(JFrame frame, Runnable onBack) {
 
 
         setLayout(new BorderLayout(20, 20));
@@ -23,6 +23,24 @@ public class OptionsPanel extends JPanel {
         backButton = new JButton("Go Back");
         add(createBackButtonContainer(onBack), BorderLayout.SOUTH);
 
+        toggleFullscreen.addActionListener(e -> toggleFullscreen(frame));
+
+    }
+
+
+    private void toggleFullscreen(JFrame frame) {
+        if (toggleFullscreen.isSelected()) {
+            frame.dispose();
+            frame.setUndecorated(true);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.setVisible(true);
+        } else {
+            frame.dispose();
+            frame.setUndecorated(false);
+            frame.setExtendedState(JFrame.NORMAL);
+            frame.setVisible(true);
+            frame.setSize(600, 500);
+        }
     }
 
     private JLabel createTitle() {

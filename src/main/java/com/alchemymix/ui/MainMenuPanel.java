@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class MainMenuPanel extends JPanel {
 
-    public MainMenuPanel(JFrame parentFrame, Runnable onStart, Runnable onOptions, Runnable onExit) {
+    public MainMenuPanel(JFrame parentFrame, Runnable onStart, Runnable showOptions, Runnable onExit) {
         setLayout(new GridBagLayout());
         setBackground(Color.BLACK);
 
@@ -29,7 +29,7 @@ public class MainMenuPanel extends JPanel {
         add(startButton, gbc);
 
         MainMenuButton optionsButton = new MainMenuButton("Options", parentFrame);
-        optionsButton.addActionListener(e -> onOptions.run());
+        optionsButton.addActionListener(e -> showOptions.run());
         add(optionsButton, gbc);
 
         MainMenuButton exitButton = new MainMenuButton("Exit", parentFrame);

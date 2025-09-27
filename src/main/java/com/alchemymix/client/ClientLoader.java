@@ -65,7 +65,7 @@ public class ClientLoader {
     }
 
     private void showOptions() {
-        OptionsPanel optionsPanel = new OptionsPanel(this::showMainMenu);
+        OptionsPanel optionsPanel = new OptionsPanel(frame, this::showMainMenu);
         frame.setContentPane(optionsPanel);
         frame.revalidate();
     }
