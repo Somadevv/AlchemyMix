@@ -1,18 +1,18 @@
 package com.alchemymix.client;
 
 import com.alchemymix.model.Account;
-import com.alchemymix.service.AccountManager;
+import com.alchemymix.ui.CreateAccountDialogue;
 import com.alchemymix.ui.MainMenuPanel;
 import com.alchemymix.ui.buttons.OptionsPanel;
 
 import javax.swing.*;
-import java.io.IOException ;
+import java.awt.Dimension;
 
 public class ClientLoader {
 
     private static final String CLIENT_NAME = "AlchemyMix";
-    private static final int CLIENT_WIDTH = 600;
-    private static final int CLIENT_HEIGHT = 500;
+    private static final int CLIENT_WIDTH = 1280;
+    private static final int CLIENT_HEIGHT = 720;
 
     private JFrame frame;
 
@@ -27,6 +27,7 @@ public class ClientLoader {
 
     private void drawMainMenu() {
         frame = new JFrame(CLIENT_NAME);
+        frame.setMinimumSize(new Dimension(1280, 720));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
         frame.setLocationRelativeTo(null);
