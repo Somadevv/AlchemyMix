@@ -39,6 +39,7 @@ public class ClientLoader {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
                 this::createAccount,
+                this::displayMainMenu,
                 this::showOptions,
                 this::exitGame
         );
@@ -58,7 +59,7 @@ public class ClientLoader {
         }
     }
     private void showOptions() {
-        OptionsPanel optionsPanel = new OptionsPanel(this::showMainMenu);
+        OptionsPanel optionsPanel = new OptionsPanel(this::displayMainMenu);
         frame.setContentPane(optionsPanel);
         frame.revalidate();
     }
