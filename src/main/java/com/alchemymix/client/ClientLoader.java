@@ -18,24 +18,26 @@ public class ClientLoader {
 
     // Entry point
     public void launch() {
-        SwingUtilities.invokeLater(this::createAndShowGUI);
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception ignored) {}
+
+        SwingUtilities.invokeLater(this::drawMainMenu);
     }
 
-    // Setup frame and show the main menu
-    private void createAndShowGUI() {
+    private void drawMainMenu() {
         frame = new JFrame(CLIENT_NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
         frame.setLocationRelativeTo(null);
 
-        // Show main menu panel
-        showMainMenu();
+        // Main menu
+        displayMainMenu();
 
         frame.setVisible(true);
     }
 
-    // Swap to main menu
-    private void showMainMenu() {
+    private void displayMainMenu() {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
                 this::createAccount,
@@ -46,31 +48,26 @@ public class ClientLoader {
         frame.revalidate();
     }
 
-    // Create Account
     private void createAccount() {
-        String username = JOptionPane.showInputDialog(frame, "Enter Username:");
-        if (username == null || username.isBlank()) return;
+        CreateAccountDialogue dialog = new CreateAccountDialogue(frame);
+        Account created = dialog.showDialogAndGetAccount();
 
-        String password = JOptionPane.showInputDialog(frame, "Enter Password:");
-        if (password == null || password.isBlank()) return;
-
-        Account newAccount = new Account(username, password);
-
-        try {
-            AccountManager.saveAccount(newAccount);
-            JOptionPane.showMessageDialog(frame, "Account created for " + username + "!");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(frame, "Error saving account: " + e.getMessage());
+        if (created != null) {
+            JOptionPane.showMessageDialog(frame,
+                    "Welcome, " + created.getUsername() + "!",
+                    "Account Created",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
     private void showOptions() {
-        OptionsPanel optionsPanel = new OptionsPanel(frame, this::showMainMenu);
+        OptionsPanel optionsPanel = new OptionsPanel(frame, this::displayMainMenu);
         frame.setContentPane(optionsPanel);
         frame.revalidate();
     }
 
+
     private void exitGame() {
-        frame.dispose();
+        System.out.println("Exiting game...");
+        System.exit(0);
     }
 }
