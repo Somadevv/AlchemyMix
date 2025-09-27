@@ -20,6 +20,7 @@ public class MainMenuPanel extends JPanel {
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.anchor = GridBagConstraints.CENTER;
 
+        // Title
         JLabel title = new JLabel("AlchemyMix");
         title.setFont(new Font("Serif", Font.BOLD, 42));
         title.setForeground(Color.WHITE);

@@ -3,8 +3,10 @@ package com.alchemymix.client;
 import com.alchemymix.model.Account;
 import com.alchemymix.ui.CreateAccountDialogue;
 import com.alchemymix.ui.MainMenuPanel;
+import com.alchemymix.ui.buttons.OptionsPanel;
 
 import javax.swing.*;
+import java.io.IOException ;
 
 public class ClientLoader {
     private static final String CLIENT_NAME = "AlchemyMix";
@@ -36,7 +38,8 @@ public class ClientLoader {
     private void displayMainMenu() {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
-                this::createAccount, // hook up account creation
+                this::createAccount,
+                this::showOptions,
                 this::exitGame
         );
         frame.setContentPane(menu);
@@ -54,6 +57,12 @@ public class ClientLoader {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    private void showOptions() {
+        OptionsPanel optionsPanel = new OptionsPanel(this::showMainMenu);
+        frame.setContentPane(optionsPanel);
+        frame.revalidate();
+    }
+
 
     private void exitGame() {
         System.out.println("Exiting game...");
