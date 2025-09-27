@@ -1,8 +1,11 @@
 package com.alchemymix.client;
 
+import com.alchemymix.model.Account;
+import com.alchemymix.service.AccountManager;
 import com.alchemymix.ui.MainMenuPanel;
 
 import javax.swing.*;
+import java.io.IOException ;
 
 public class ClientLoader {
 
@@ -34,21 +37,32 @@ public class ClientLoader {
     private void showMainMenu() {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
-                this::startGame,
+                this::createAccount,
                 this::showOptions,
                 this::exitGame
         );
         frame.setContentPane(menu);
         frame.revalidate();
     }
+    private void login() {
 
-    // Placeholder: later will load your game screen
-    private void startGame() {
-        JPanel gamePanel = new JPanel();
-        gamePanel.add(new JLabel("Game started!"));
+    };
+    // Create Account
+    private void createAccount() {
+        String username = JOptionPane.showInputDialog(frame, "Enter Username:");
+        if (username == null || username.isBlank()) return;
 
-        frame.setContentPane(gamePanel);
-        frame.revalidate();
+        String password = JOptionPane.showInputDialog(frame, "Enter Password:");
+        if (password == null || password.isBlank()) return;
+
+        Account newAccount = new Account(username, password);
+
+        try {
+            AccountManager.saveAccount(newAccount);
+            JOptionPane.showMessageDialog(frame, "Account created for " + username + "!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "Error saving account: " + e.getMessage());
+        }
     }
 
     private void showOptions() {

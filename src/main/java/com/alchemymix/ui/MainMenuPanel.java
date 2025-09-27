@@ -22,8 +22,9 @@ public class MainMenuPanel extends JPanel {
         title.setForeground(Color.WHITE);
         add(title, gbc);
 
-        // Buttons
-        MainMenuButton startButton = new MainMenuButton("Start Game", parentFrame);
+
+        // Create Account
+        MainMenuButton startButton = new MainMenuButton("Create Account", parentFrame);
         startButton.addActionListener(e -> onStart.run());
         add(startButton, gbc);
 
