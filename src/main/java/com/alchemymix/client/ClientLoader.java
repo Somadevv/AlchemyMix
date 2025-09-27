@@ -35,6 +35,7 @@ public class ClientLoader {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
                 this::startGame,
+                this::showOptions,
                 this::exitGame
         );
         frame.setContentPane(menu);
@@ -47,6 +48,14 @@ public class ClientLoader {
         gamePanel.add(new JLabel("Game started!"));
 
         frame.setContentPane(gamePanel);
+        frame.revalidate();
+    }
+
+    private void showOptions() {
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.add(new JLabel("Options go here:"));
+
+        frame.setContentPane(optionsPanel);
         frame.revalidate();
     }
 
