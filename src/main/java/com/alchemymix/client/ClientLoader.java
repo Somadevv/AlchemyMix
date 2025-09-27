@@ -3,6 +3,7 @@ package com.alchemymix.client;
 import com.alchemymix.model.Account;
 import com.alchemymix.service.AccountManager;
 import com.alchemymix.ui.MainMenuPanel;
+import com.alchemymix.ui.buttons.OptionsPanel;
 
 import javax.swing.*;
 import java.io.IOException ;
@@ -44,9 +45,7 @@ public class ClientLoader {
         frame.setContentPane(menu);
         frame.revalidate();
     }
-    private void login() {
 
-    };
     // Create Account
     private void createAccount() {
         String username = JOptionPane.showInputDialog(frame, "Enter Username:");
@@ -66,9 +65,7 @@ public class ClientLoader {
     }
 
     private void showOptions() {
-        JPanel optionsPanel = new JPanel();
-        optionsPanel.add(new JLabel("Options go here:"));
-
+        OptionsPanel optionsPanel = new OptionsPanel(this::showMainMenu);
         frame.setContentPane(optionsPanel);
         frame.revalidate();
     }
