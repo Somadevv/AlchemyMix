@@ -39,7 +39,6 @@ public class ClientLoader {
         MainMenuPanel menu = new MainMenuPanel(
                 frame,
                 this::createAccount,
-                this::displayMainMenu,
                 this::showOptions,
                 this::exitGame
         );

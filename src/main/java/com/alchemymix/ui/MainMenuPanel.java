@@ -1,5 +1,6 @@
 package com.alchemymix.ui;
 
+import com.alchemymix.Main;
 import com.alchemymix.ui.buttons.MainMenuButton;
 
 import javax.swing.*;
@@ -10,7 +11,8 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
-    public MainMenuPanel(JFrame parentFrame, Runnable onCreateAccount, Runnable onExit) {
+        public MainMenuPanel(JFrame parentFrame, Runnable onCreateAccount, Runnable onOptions, Runnable onExit) {
+
         setLayout(new GridBagLayout());
         setOpaque(false);
 
@@ -32,6 +34,10 @@ public class MainMenuPanel extends JPanel {
         MainMenuButton createBtn = new MainMenuButton("Create Account", parentFrame);
         createBtn.addActionListener(e -> onCreateAccount.run());
         add(createBtn, gbc);
+
+        MainMenuButton optionsButton = new MainMenuButton("Options", parentFrame);
+        optionsButton.addActionListener(e -> onOptions.run());
+        add(optionsButton, gbc);
 
         MainMenuButton exitBtn = new MainMenuButton("Exit", parentFrame);
         exitBtn.addActionListener(e -> onExit.run());
