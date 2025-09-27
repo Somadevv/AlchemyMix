@@ -11,16 +11,15 @@ import java.awt.event.ComponentEvent;
  */
 public class MainMenuButton extends JButton {
 
-    // Constants (shared across all buttons)
-    private static final int MIN_WIDTH = 100;
+    private static final int MIN_WIDTH = 120;
     private static final int MIN_HEIGHT = 40;
-    private static final int H_PADDING = 40;
-    private static final int V_PADDING = 20;
+    private static final int H_PADDING = 30;
+    private static final int V_PADDING = 15;
 
     public MainMenuButton(String text, JFrame parentFrame) {
         super(text);
+        setFocusPainted(false);
 
-        // Listen for frame resize
         parentFrame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -28,7 +27,6 @@ public class MainMenuButton extends JButton {
             }
         });
 
-        // Initial sizing
         resizeToFit(parentFrame);
     }
 
@@ -36,25 +34,18 @@ public class MainMenuButton extends JButton {
         int frameWidth = frame.getWidth();
         int frameHeight = frame.getHeight();
 
-        // Scale font based on smaller dimension
-        int fontSize = Math.max(12, Math.min(frameWidth, frameHeight) / 20);
-        Font font = new Font("Arial", Font.BOLD, fontSize);
+        // font smaller scaling
+        int fontSize = Math.max(14, Math.min(frameWidth, frameHeight) / 25);
+        Font font = new Font("SansSerif", Font.BOLD, fontSize);
         setFont(font);
 
-        // Measure text size with new font
         FontMetrics fm = getFontMetrics(font);
         int textWidth = fm.stringWidth(getText());
         int textHeight = fm.getHeight();
 
-        // Add padding
-        int buttonWidth = textWidth + H_PADDING;
-        int buttonHeight = textHeight + V_PADDING;
+        int buttonWidth = Math.max(textWidth + H_PADDING, MIN_WIDTH);
+        int buttonHeight = Math.max(textHeight + V_PADDING, MIN_HEIGHT);
 
-        // Prevent tiny button
-        buttonWidth = Math.max(buttonWidth, MIN_WIDTH);
-        buttonHeight = Math.max(buttonHeight, MIN_HEIGHT);
-
-        // Apply dimensions
         Dimension size = new Dimension(buttonWidth, buttonHeight);
         setPreferredSize(size);
         setMinimumSize(size);

@@ -1,5 +1,6 @@
 package com.alchemymix.service;
 
+import com.alchemymix.account.AccountCreationResult;
 import com.alchemymix.model.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,29 +14,43 @@ public class AccountManager {
     /**
      * Check if an account JSON file already exists for the given username.
      */
-    public static boolean accountExists(String username) {
+    public static boolean checkAccountExists(String username) {
         String normalized = capitalizeFirst(username);
         File file = new File(ACCOUNTS_DIR, normalized + ".json");
         return file.exists();
     }
 
-    /**
-     * Save an account to JSON.
-     * Caller is responsible for checking accountExists() first.
-     */
-    public static void createAccount(Account account) throws IOException {
-        File dir = new File(ACCOUNTS_DIR);
-        if (!dir.exists()) {
-            dir.mkdirs();
+    public static AccountCreationResult createAccount(String username, String password) {
+        String normalized = capitalizeFirst(username == null ? "" : username.trim());
+
+        if (normalized.isBlank() || password == null || password.trim().isBlank()) {
+            return new AccountCreationResult(AccountCreationResult.Status.INVALID_INPUT,
+                    "Username and password cannot be empty.");
         }
 
-        String normalized = capitalizeFirst(account.getUsername());
-        File file = new File(dir, normalized + ".json");
+        File dir = new File(ACCOUNTS_DIR);
+        if (!dir.exists() && !dir.mkdirs()) {
+            return new AccountCreationResult(AccountCreationResult.Status.IO_ERROR,
+                    "Could not create accounts directory.");
+        }
 
+        File file = new File(dir, normalized + ".json");
+        if (file.exists()) {
+            return new AccountCreationResult(AccountCreationResult.Status.ALREADY_EXISTS,
+                    "That username is already taken.");
+        }
+
+        Account account = new Account(normalized, password);
         try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(account, writer);
+            return new AccountCreationResult(AccountCreationResult.Status.SUCCESS,
+                    "Account created.", account);
+        } catch (IOException e) {
+            return new AccountCreationResult(AccountCreationResult.Status.IO_ERROR,
+                    "Error saving account: " + e.getMessage());
         }
     }
+
 
     /**
      * Load an account from JSON by username.
