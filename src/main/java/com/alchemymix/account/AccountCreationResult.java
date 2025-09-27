@@ -37,7 +37,7 @@ public class AccountCreationResult {
         return account;
     }
 
-    public boolean isSuccess() {
-        return status == Status.SUCCESS;
-    }
+//    public boolean isSuccess() {
+//        return status == Status.SUCCESS;
+//    }
 }
