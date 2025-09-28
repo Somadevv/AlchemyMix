@@ -20,7 +20,7 @@ public class UIInitializer {
     public static void registerPanels(PanelManager panelManager) {
         // Add all panels your client needs here
         panelManager.registerPanel("MAIN_MENU", new MainMenuPanel(panelManager));
-        panelManager.registerPanel("OPTIONS", new OptionsPanel(panelManager));
+        panelManager.registerPanel("SHOW_OPTIONS", new OptionsPanel(panelManager));
         panelManager.registerPanel("CREATE_ACCOUNT", new CreateAccountPanel(panelManager));
     }
 
