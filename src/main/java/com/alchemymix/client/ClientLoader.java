@@ -42,6 +42,9 @@ public class ClientLoader {
     private void initUI() {
         panelManager = new PanelManager(CLIENT_NAME, "MAIN_MENU", CLIENT_WIDTH, CLIENT_HEIGHT);
 
+        JFrame window = panelManager.getWindow();
+        window.setMinimumSize(new Dimension(1280, 720));  // <-- enforce minimum size
+
         // Register panels
         UIInitializer.registerPanels(panelManager);
 

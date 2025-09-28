@@ -7,62 +7,26 @@ import java.awt.*;
 
 public class OptionsPanel extends JPanel {
     private final JCheckBox toggleFullscreen;
-    private final JButton backButton;
     private final JComboBox<String> resolutionDropdown;
 
     public OptionsPanel(PanelManager manager) {
         setLayout(new BorderLayout(20, 20));
 
-        // Add title
-        add(createTitle(), BorderLayout.NORTH);
-
-        // Add Fullscreen Toggle
-        toggleFullscreen = new JCheckBox("Fullscreen");
-
-        // Add Resolution Dropdown
-        String[] resolutions = {"1280x720", "1600x900", "1920x1080"};
-        resolutionDropdown = new JComboBox<>(resolutions);
-
-        add(createOptionsContainer(manager), BorderLayout.CENTER);
-
-        // Add Back Button
-        backButton = new JButton("Go Back");
-        add(createBackButtonContainer(manager), BorderLayout.SOUTH);
-    }
-
-    private JLabel createTitle() {
+        // Title at top-center
         JLabel title = new JLabel("Options", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(Font.BOLD, 20f));
-        return title;
-    }
+        add(title, BorderLayout.NORTH);
 
-    private JPanel createOptionsContainer(PanelManager manager) {
-        JPanel container = new JPanel();
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Fullscreen toggle container
-        JPanel fullscreenToggleContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        fullscreenToggleContainer.add(toggleFullscreen);
-        container.add(fullscreenToggleContainer);
-
-        // Resolution dropdown container
-        JPanel resolutionContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        resolutionContainer.add(new JLabel("Resolution:"));
-        resolutionContainer.add(resolutionDropdown);
-        container.add(resolutionContainer);
-
-        // Add functionality
+        // Fullscreen toggle
+        toggleFullscreen = new JCheckBox("Fullscreen");
         toggleFullscreen.addActionListener(e -> {
             JFrame window = manager.getWindow();
             if (toggleFullscreen.isSelected()) {
-                // Enable fullscreen
                 window.dispose();
                 window.setUndecorated(true);
                 window.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 window.setVisible(true);
             } else {
-                // Exit fullscreen
                 window.dispose();
                 window.setUndecorated(false);
                 window.setExtendedState(JFrame.NORMAL);
@@ -72,6 +36,9 @@ public class OptionsPanel extends JPanel {
             }
         });
 
+        // Resolution dropdown
+        String[] resolutions = {"1280x720", "1600x900", "1920x1080"};
+        resolutionDropdown = new JComboBox<>(resolutions);
         resolutionDropdown.addActionListener(e -> {
             JFrame window = manager.getWindow();
             String selected = (String) resolutionDropdown.getSelectedItem();
@@ -84,15 +51,47 @@ public class OptionsPanel extends JPanel {
             }
         });
 
-        return container;
-    }
+        // Create quadrants container
+        JPanel quadrantsContainer = new JPanel(new GridLayout(2, 2, 10, 10));
 
-    private JPanel createBackButtonContainer(PanelManager manager) {
-        JPanel backButtonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        backButtonContainer.add(backButton);
+        // Quadrant 1: Display settings
+        JPanel displaySettings = new JPanel();
+        displaySettings.setLayout(new BoxLayout(displaySettings, BoxLayout.Y_AXIS));
+        displaySettings.setBorder(BorderFactory.createTitledBorder("Display Settings"));
+        displaySettings.add(toggleFullscreen);
+        displaySettings.add(Box.createVerticalStrut(10));
+        displaySettings.add(new JLabel("Resolution:"));
+        displaySettings.add(resolutionDropdown);
 
+        // Quadrant 2: Audio settings (placeholder)
+        JPanel audioSettings = new JPanel();
+        audioSettings.setLayout(new BoxLayout(audioSettings, BoxLayout.Y_AXIS));
+        audioSettings.setBorder(BorderFactory.createTitledBorder("Audio Settings"));
+
+        // Quadrant 3: Controls settings (placeholder)
+        JPanel controlsSettings = new JPanel();
+        controlsSettings.setLayout(new BoxLayout(controlsSettings, BoxLayout.Y_AXIS));
+        controlsSettings.setBorder(BorderFactory.createTitledBorder("Controls Settings"));
+
+        // Quadrant 4: Misc settings (placeholder)
+        JPanel miscSettings = new JPanel();
+        miscSettings.setLayout(new BoxLayout(miscSettings, BoxLayout.Y_AXIS));
+        miscSettings.setBorder(BorderFactory.createTitledBorder("Misc Settings"));
+
+        // Add quadrants to container
+        quadrantsContainer.add(displaySettings);
+        quadrantsContainer.add(audioSettings);
+        quadrantsContainer.add(controlsSettings);
+        quadrantsContainer.add(miscSettings);
+
+        add(quadrantsContainer, BorderLayout.CENTER);
+
+        // Back button at bottom
+        JButton backButton = new JButton("Go Back");
         backButton.addActionListener(e -> manager.displayPanel("MAIN_MENU"));
 
-        return backButtonContainer;
+        JPanel backButtonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        backButtonContainer.add(backButton);
+        add(backButtonContainer, BorderLayout.SOUTH);
     }
 }

@@ -23,5 +23,4 @@ public class UIInitializer {
         panelManager.registerPanel("SHOW_OPTIONS", new OptionsPanel(panelManager));
         panelManager.registerPanel("CREATE_ACCOUNT", new CreateAccountPanel(panelManager));
     }
-
 }
