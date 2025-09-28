@@ -22,12 +22,12 @@ public class OptionsPanel extends JPanel {
         // Title
         add(createTitle(), BorderLayout.NORTH);
 
-        // Toggle Fullscreen
+        // Toggle Fullscreen Logic
         toggleFullscreen = new JCheckBox("Fullscreen");
         toggleFullscreen.setFont(new Font("Serif", Font.PLAIN, 20));
         toggleFullscreen.addActionListener(e -> toggleFullscreen(frame));
 
-        // Resolution Dropdown
+        // Resolution Dropdown Logic
         resolutionDropdown = new JComboBox<>(new String[]{"1280x720", "1600x900", "1920x1080"});
         resolutionDropdown.setFont(new Font("Serif", Font.PLAIN, 20));
         resolutionDropdown.addActionListener(e -> {
@@ -44,7 +44,7 @@ public class OptionsPanel extends JPanel {
             }
         });
 
-        // Center panel
+        // Center panel Creation with
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.add(createFullscreenContainer());
