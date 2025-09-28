@@ -8,6 +8,8 @@ import com.alchemymix.ui.panels.OptionsPanel;
 import com.alchemymix.ui.util.UIInitializer;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException ;
 
 public class ClientLoader {
     private static final String CLIENT_NAME = "AlchemyMix";
@@ -24,7 +26,19 @@ public class ClientLoader {
 
         SwingUtilities.invokeLater(this::initUI);
     }
-
+    // Cades old method (kept incase you need some of the functionality
+//    private void drawMainMenu() {
+//        frame = new JFrame(CLIENT_NAME);
+//        frame.setMinimumSize(new Dimension(1280, 720));
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
+//        frame.setLocationRelativeTo(null);
+//
+//        // Main menu
+//        displayMainMenu();
+//
+//        frame.setVisible(true);
+//    }
     private void initUI() {
         panelManager = new PanelManager(CLIENT_NAME, "MAIN_MENU", CLIENT_WIDTH, CLIENT_HEIGHT);
 
