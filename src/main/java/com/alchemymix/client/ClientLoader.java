@@ -1,73 +1,67 @@
 package com.alchemymix.client;
 
-import com.alchemymix.model.Account;
-import com.alchemymix.ui.CreateAccountDialogue;
-import com.alchemymix.ui.MainMenuPanel;
-import com.alchemymix.ui.buttons.OptionsPanel;
+import com.alchemymix.models.Account;
+import com.alchemymix.ui.panels.CreateAccountPanel;
+import com.alchemymix.ui.core.PanelManager;
+import com.alchemymix.ui.panels.MainMenuPanel;
+import com.alchemymix.ui.panels.OptionsPanel;
+import com.alchemymix.ui.util.UIInitializer;
 
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.*;
+import java.io.IOException ;
 
 public class ClientLoader {
-
     private static final String CLIENT_NAME = "AlchemyMix";
-    private static final int CLIENT_WIDTH = 1280;
-    private static final int CLIENT_HEIGHT = 720;
+    private static final int CLIENT_WIDTH = 700;
+    private static final int CLIENT_HEIGHT = 500;
 
-    private JFrame frame;
+    private PanelManager panelManager;
 
-    // Entry point
     public void launch() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception ignored) {}
 
-        SwingUtilities.invokeLater(this::drawMainMenu);
+
+        SwingUtilities.invokeLater(this::initUI);
     }
+    // Cades old method (kept incase you need some of the functionality
+//    private void drawMainMenu() {
+//        frame = new JFrame(CLIENT_NAME);
+//        frame.setMinimumSize(new Dimension(1280, 720));
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
+//        frame.setLocationRelativeTo(null);
+//
+//        // Main menu
+//        displayMainMenu();
+//
+//        frame.setVisible(true);
+//    }
+    private void initUI() {
+        panelManager = new PanelManager(CLIENT_NAME, "MAIN_MENU", CLIENT_WIDTH, CLIENT_HEIGHT);
 
-    private void drawMainMenu() {
-        frame = new JFrame(CLIENT_NAME);
-        frame.setMinimumSize(new Dimension(1280, 720));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
-        frame.setLocationRelativeTo(null);
+        // Register panels
+        UIInitializer.registerPanels(panelManager);
 
-        // Main menu
-        displayMainMenu();
-
-        frame.setVisible(true);
-    }
-
-    private void displayMainMenu() {
-        MainMenuPanel menu = new MainMenuPanel(
-                frame,
-                this::createAccount,
-                this::showOptions,
-                this::exitGame
-        );
-        frame.setContentPane(menu);
-        frame.revalidate();
-    }
-
-    private void createAccount() {
-        CreateAccountDialogue dialog = new CreateAccountDialogue(frame);
-        Account created = dialog.showDialogAndGetAccount();
-
-        if (created != null) {
-            JOptionPane.showMessageDialog(frame,
-                    "Welcome, " + created.getUsername() + "!",
-                    "Account Created",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-    private void showOptions() {
-        OptionsPanel optionsPanel = new OptionsPanel(frame, this::displayMainMenu);
-        frame.setContentPane(optionsPanel);
-        frame.revalidate();
+        // Show main menu
+        panelManager.displayPanel("MAIN_MENU");
+        panelManager.showWindow();
     }
 
 
-    private void exitGame() {
+    // --- Handlers for menu actions ---
+
+public void createAccount() {
+    panelManager.displayPanel("CREATE_ACCOUNT");
+}
+
+    public void showOptions() {
+        panelManager.displayPanel("OPTIONS");
+    }
+
+    public void exitGame() {
         System.out.println("Exiting game...");
         System.exit(0);
     }

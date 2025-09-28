@@ -1,7 +1,8 @@
-package com.alchemymix.ui;
+package com.alchemymix.ui.panels;
 
-import com.alchemymix.Main;
-import com.alchemymix.ui.buttons.MainMenuButton;
+import com.alchemymix.ui.core.PanelManager;
+import com.alchemymix.ui.widgets.MainMenuButton;
+import com.alchemymix.ui.util.UIHelpers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +12,7 @@ import java.awt.*;
  */
 public class MainMenuPanel extends JPanel {
 
-        public MainMenuPanel(JFrame parentFrame, Runnable onCreateAccount, Runnable showOptions, Runnable onExit) {
-
+        public MainMenuPanel(PanelManager manager) {
         setLayout(new GridBagLayout());
         setOpaque(false);
 
@@ -31,17 +31,15 @@ public class MainMenuPanel extends JPanel {
         // Spacer
         gbc.insets = new Insets(40, 10, 10, 10);
 
-        MainMenuButton createBtn = new MainMenuButton("Create Account", parentFrame);
-        createBtn.addActionListener(e -> onCreateAccount.run());
-        add(createBtn, gbc);
+        UIHelpers.addMenuButton(this, "Create Account", "CREATE_ACCOUNT", gbc, manager);
+        UIHelpers.addMenuButton(this, "Options", "SHOW_OPTIONS", gbc, manager);
+        UIHelpers.addMenuButton(this, "Exit", "EXIT", gbc, manager);
+    }
 
-        MainMenuButton optionsButton = new MainMenuButton("Options", parentFrame);
-        optionsButton.addActionListener(e -> showOptions.run());
-        add(optionsButton, gbc);
-
-        MainMenuButton exitBtn = new MainMenuButton("Exit", parentFrame);
-        exitBtn.addActionListener(e -> onExit.run());
-        add(exitBtn, gbc);
+    private void addMenuButton(String label, String panelName, GridBagConstraints gbc, PanelManager manager) {
+        MainMenuButton button = new MainMenuButton(label, manager.getWindow());
+        button.addActionListener(e -> manager.displayPanel(panelName));
+        add(button, gbc);
     }
 
     @Override
