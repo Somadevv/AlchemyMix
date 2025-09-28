@@ -1,6 +1,6 @@
 package com.alchemymix.account;
 
-import com.alchemymix.model.Account;
+import com.alchemymix.models.Account;
 
 public class AccountCreationResult {
 

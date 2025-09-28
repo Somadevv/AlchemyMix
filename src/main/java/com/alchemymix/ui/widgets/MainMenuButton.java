@@ -1,4 +1,4 @@
-package com.alchemymix.ui.buttons;
+package com.alchemymix.ui.widgets;
 
 import javax.swing.*;
 import java.awt.*;

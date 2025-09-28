@@ -1,4 +1,6 @@
-package com.alchemymix.ui.buttons;
+package com.alchemymix.ui.panels;
+
+import com.alchemymix.ui.core.PanelManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,10 +9,9 @@ public class OptionsPanel extends JPanel {
     private final JCheckBox toggleFullscreen;
     private final JButton backButton;
 
-    public OptionsPanel(Runnable onBack) {
-
-
+    public OptionsPanel(PanelManager manager) {
         setLayout(new BorderLayout(20, 20));
+
         // Add title
         add(createTitle(), BorderLayout.NORTH);
 
@@ -19,14 +20,14 @@ public class OptionsPanel extends JPanel {
         add(createFullscreenContainer(), BorderLayout.CENTER);
 
         // Add Back Button
-
         backButton = new JButton("Go Back");
-        add(createBackButtonContainer(onBack), BorderLayout.SOUTH);
-
+        add(createBackButtonContainer(manager), BorderLayout.SOUTH);
     }
 
     private JLabel createTitle() {
-        return new JLabel("Options", SwingConstants.CENTER);
+        JLabel title = new JLabel("Options", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(Font.BOLD, 20f)); // make it look nicer
+        return title;
     }
 
     private JPanel createFullscreenContainer() {
@@ -35,16 +36,13 @@ public class OptionsPanel extends JPanel {
         return fullscreenToggleContainer;
     }
 
-    //  Back Button
-    private JPanel createBackButtonContainer(Runnable onBack) {
+    private JPanel createBackButtonContainer(PanelManager manager) {
         JPanel backButtonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
         backButtonContainer.add(backButton);
-        //  Action
-        backButton.addActionListener(e -> onBack.run());
+
+        // Action -> return to MAIN_MENU
+        backButton.addActionListener(e -> manager.displayPanel("MAIN_MENU"));
+
         return backButtonContainer;
     }
 }
-
-
-
-
