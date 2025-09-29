@@ -21,35 +21,11 @@ public class OptionsPanel extends JPanel {
         toggleFullscreen = new JCheckBox("Fullscreen");
         toggleFullscreen.addActionListener(e -> {
             JFrame window = manager.getWindow();
-            if (toggleFullscreen.isSelected()) {
-                window.dispose();
-                window.setUndecorated(true);
-                window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                window.setVisible(true);
-            } else {
-                window.dispose();
-                window.setUndecorated(false);
-                window.setExtendedState(JFrame.NORMAL);
-                window.setSize(800, 600);
-                window.setLocationRelativeTo(null);
-                window.setVisible(true);
-            }
         });
 
         // Resolution dropdown
         String[] resolutions = {"1280x720", "1600x900", "1920x1080"};
         resolutionDropdown = new JComboBox<>(resolutions);
-        resolutionDropdown.addActionListener(e -> {
-            JFrame window = manager.getWindow();
-            String selected = (String) resolutionDropdown.getSelectedItem();
-            if (selected != null && !toggleFullscreen.isSelected()) {
-                String[] dims = selected.split("x");
-                int width = Integer.parseInt(dims[0]);
-                int height = Integer.parseInt(dims[1]);
-                window.setSize(width, height);
-                window.setLocationRelativeTo(null);
-            }
-        });
 
         // Create quadrants container
         JPanel quadrantsContainer = new JPanel(new GridLayout(2, 2, 10, 10));
@@ -90,8 +66,42 @@ public class OptionsPanel extends JPanel {
         JButton backButton = new JButton("Go Back");
         backButton.addActionListener(e -> manager.displayPanel("MAIN_MENU"));
 
-        JPanel backButtonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        backButtonContainer.add(backButton);
-        add(backButtonContainer, BorderLayout.SOUTH);
+
+        // Apply button at bottom
+        JButton applyButton = new JButton("Apply");
+        applyButton.addActionListener(e -> {
+            JFrame window = manager.getWindow();
+
+            //Fullscreen logic
+            if (toggleFullscreen.isSelected()) {
+                window.dispose();
+                window.setUndecorated(true);
+                window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                window.setVisible(true);
+            } else {
+                window.dispose();
+                window.setUndecorated(false);
+                window.setExtendedState(JFrame.NORMAL);
+                window.setSize(800, 600);
+                window.setLocationRelativeTo(null);
+                window.setVisible(true);
+            }
+
+
+            //Resolution logic
+            String selected = (String) resolutionDropdown.getSelectedItem();
+            if (selected != null && !toggleFullscreen.isSelected()) {
+                String[] dims = selected.split("x");
+                int width = Integer.parseInt(dims[0]);
+                int height = Integer.parseInt(dims[1]);
+                window.setSize(width, height);
+                window.setLocationRelativeTo(null);
+            }
+        });
+        //Bottom Button panel
+        JPanel bottomButtonContainer = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomButtonContainer.add(backButton);
+        bottomButtonContainer.add(applyButton);
+        add(bottomButtonContainer, BorderLayout.SOUTH);
     }
 }

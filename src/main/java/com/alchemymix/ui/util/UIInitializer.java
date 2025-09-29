@@ -5,8 +5,8 @@ import com.alchemymix.ui.panels.*;
 
 public class UIInitializer {
     private static final String CLIENT_NAME = "AlchemyMix";
-    private static final int CLIENT_WIDTH = 800;
-    private static final int CLIENT_HEIGHT = 600;
+    private static final int CLIENT_WIDTH = 1280;
+    private static final int CLIENT_HEIGHT = 720;
 
     public static void initializeUI() {
         PanelManager panelManager = new PanelManager(CLIENT_NAME, "MAIN_MENU", CLIENT_WIDTH, CLIENT_HEIGHT);
