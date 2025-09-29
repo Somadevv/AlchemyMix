@@ -1,6 +1,6 @@
 package com.alchemymix.client;
 
-import com.alchemymix.ui.util.UIInitializer;
+import com.alchemymix.ui.utils.UIInitializer;
 
 import javax.swing.*;
 

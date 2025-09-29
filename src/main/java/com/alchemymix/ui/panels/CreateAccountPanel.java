@@ -1,13 +1,11 @@
 package com.alchemymix.ui.panels;
 
-import com.alchemymix.models.Account;
 import com.alchemymix.service.AccountManager;
 import com.alchemymix.account.AccountCreationResult;
-import com.alchemymix.ui.core.PanelManager;
+import com.alchemymix.ui.manager.PanelManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class CreateAccountPanel extends JPanel {
     private final JTextField usernameField = new JTextField(15);

@@ -1,8 +1,8 @@
 package com.alchemymix.ui.panels;
 
-import com.alchemymix.ui.core.PanelManager;
+import com.alchemymix.ui.manager.PanelManager;
 import com.alchemymix.ui.widgets.MainMenuButton;
-import com.alchemymix.ui.util.UIHelpers;
+import com.alchemymix.ui.utils.UIHelpers;
 
 import javax.swing.*;
 import java.awt.*;

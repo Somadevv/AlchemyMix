@@ -1,8 +1,8 @@
 package com.alchemymix;
 
 import com.alchemymix.client.ClientLoader;
-import com.alchemymix.ui.core.PanelManager;
-import com.alchemymix.ui.util.UIInitializer;
+import com.alchemymix.ui.manager.PanelManager;
+import com.alchemymix.ui.utils.UIInitializer;
 
 import javax.swing.*;
 
