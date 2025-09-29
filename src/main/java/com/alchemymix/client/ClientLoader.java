@@ -1,22 +1,11 @@
 package com.alchemymix.client;
 
-import com.alchemymix.models.Account;
-import com.alchemymix.ui.panels.CreateAccountPanel;
-import com.alchemymix.ui.core.PanelManager;
-import com.alchemymix.ui.panels.MainMenuPanel;
-import com.alchemymix.ui.panels.OptionsPanel;
 import com.alchemymix.ui.util.UIInitializer;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException ;
 
 public class ClientLoader {
-    private static final String CLIENT_NAME = "AlchemyMix";
-    private static final int CLIENT_WIDTH = 700;
-    private static final int CLIENT_HEIGHT = 500;
 
-    private PanelManager panelManager;
 
     public void launch() {
         try {
@@ -24,45 +13,11 @@ public class ClientLoader {
         } catch (Exception ignored) {}
 
 
-        SwingUtilities.invokeLater(this::initUI);
-    }
-    // Cades old method (kept incase you need some of the functionality
-//    private void drawMainMenu() {
-//        frame = new JFrame(CLIENT_NAME);
-//        frame.setMinimumSize(new Dimension(1280, 720));
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(CLIENT_WIDTH, CLIENT_HEIGHT);
-//        frame.setLocationRelativeTo(null);
-//
-//        // Main menu
-//        displayMainMenu();
-//
-//        frame.setVisible(true);
-//    }
-    private void initUI() {
-        panelManager = new PanelManager(CLIENT_NAME, "MAIN_MENU", CLIENT_WIDTH, CLIENT_HEIGHT);
-
-        // Register panels
-        UIInitializer.registerPanels(panelManager);
-
-        // Show main menu
-        panelManager.displayPanel("MAIN_MENU");
-        panelManager.showWindow();
+        SwingUtilities.invokeLater(UIInitializer::initializeUI);
     }
 
 
-    // --- Handlers for menu actions ---
 
-public void createAccount() {
-    panelManager.displayPanel("CREATE_ACCOUNT");
-}
 
-    public void showOptions() {
-        panelManager.displayPanel("OPTIONS");
-    }
 
-    public void exitGame() {
-        System.out.println("Exiting game...");
-        System.exit(0);
-    }
 }

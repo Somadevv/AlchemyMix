@@ -10,7 +10,6 @@ public class GamePanel extends JPanel {
     // ✅ Constructor should take an Account, not PanelManager
     public GamePanel(Account account) {
         this.account = account;
-
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
