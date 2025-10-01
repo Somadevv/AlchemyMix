@@ -1,6 +1,7 @@
 package com.alchemymix.ui.panels;
 
 import com.alchemymix.ui.core.PanelManager;
+import com.alchemymix.ui.widgets.MainMenuButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,12 +64,12 @@ public class OptionsPanel extends JPanel {
         add(quadrantsContainer, BorderLayout.CENTER);
 
         // Back button at bottom
-        JButton backButton = new JButton("Go Back");
+        MainMenuButton backButton = new MainMenuButton("Go Back", manager.getWindow());
         backButton.addActionListener(e -> manager.displayPanel("MAIN_MENU"));
 
 
         // Apply button at bottom
-        JButton applyButton = new JButton("Apply");
+        MainMenuButton applyButton = new MainMenuButton("Apply", manager.getWindow());
         applyButton.addActionListener(e -> {
             JFrame window = manager.getWindow();
 
